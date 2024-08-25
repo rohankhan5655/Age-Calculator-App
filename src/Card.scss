@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+// color vairables
+$White: hsl(0, 0%, 100%);
+$offWhite: hsl(0, 0%, 94%);
+$lightGrey: hsl(0, 0%, 86%);
+$smokeyGrey: hsl(0, 1%, 44%);
+$offBlack: hsl(0, 0%, 8%);
+$Purple: hsl(259, 100%, 65%);
+$Orange:hsl(0, 100%, 67%);
+@mixin flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin Output-C {
+    display: flex;
+    width: 80%;
+    margin-bottom: 25px;
+    margin-left: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    font-style: italic;
+}
+@mixin Output-C-Text {
+    height: auto;
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    font-weight: 800;
+    span {
+        color: $Purple;
+        
+
+    }
+    h3 {
+        margin-left: 5px;
+    }
+}
+body {
+    background-color: $lightGrey;
+    overflow: hidden;
+    font-family: Poppins,sans-serif;
+}
+.container {
+    width:100vw;
+    height: 100vh;
+    @include flex;
+}
+.card {
+    width: 480px;
+    background-color: $offWhite;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px; 
+    border-bottom-right-radius: 30%;
+   }
+   .input-content {
+    width: 80%;
+    margin: 30px 0px 15px 25px;
+gap: 15px;
+    display: flex;
+    flex-direction: row;
+
+   }
+   .i-c-i {
+width:26%;
+
+
+ h3 {
+    color: $smokeyGrey;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 10px;
+    margin-bottom: 10px;
+    
+ }
+ input {
+    padding:8px 13px;
+    border: 0.5px solid $lightGrey;
+width: 100%;
+    background-color: $offWhite;
+
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 800;
+    &:focus {
+        outline: none;
+        border-color: $Purple;
+ cursor: pointer;        
+    }
+ }
+   }
+   .button-c {
+    display: flex;
+width: 88%;
+
+margin-left: 25px;
+justify-content: space-between;
+.border {
+    width: 100%;
+    background-color: $lightGrey;
+    height: 1.5px;
+    align-self: center;
+}
+button {
+    border-radius: 50%;
+
+    background-color: $Purple;
+    padding: 12px 6px;
+    border: none;
+    img {
+        width:60%;
+    
+        height: full;
+        
+    }
+    &:hover {
+        background-color: black;
+        cursor: pointer;
+    }
+
+}
+
+   }
+   .error {
+        width:26%;
+        
+        
+         h3 {
+            color: $Orange;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 10px;
+            margin-bottom: 5px;
+            
+         }
+         input {
+            padding:8px 13px;
+            
+        width: 100%;
+            background-color: $offWhite;
+        border: 1px solid $Orange;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 800;
+            &:focus {
+                outline: none;
+                border-color: $Purple;
+         cursor: pointer;        
+            }
+         }
+           }
+    
+   .error-m {
+    color: $Orange;
+    font-size: 9px;
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 5px;
+
+   }
+   
+
+.Output-content {
+   @include Output-C;
+       .Output-years,.Output-days,.Output-months{
+        @include Output-C-Text;
+        }
+}
+
+   @media only screen and (max-width:460px) {
+    .card {
+        width: 95vw;
+    }
+.input-content {
+    width: 90vw;
+}
+
+.button-c {
+    width: 100%;
+    button {
+        position: relative;
+ 
+        right: 50%;
+    }
+    
+}
+   }
+   @media screen and (max-width:360px) {
+    .i-c-i {
+        input {
+            font-size: 14px;
+        }
+    }
+   }
