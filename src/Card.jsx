@@ -57,7 +57,6 @@ const Card = () => {
   const handleCalculateAge = () => {
     validateFields();
 
-    // Check if there are any errors before calculating age
     if (!errors.day && !errors.month && !errors.year && day && month && year) {
       const birthDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
       const ageResult = calculateAge(birthDate);
@@ -70,19 +69,41 @@ const Card = () => {
   const calculateAge = (birthDateStr) => {
     const birthDateObj = new Date(birthDateStr);
     if (isNaN(birthDateObj.getTime())) {
-      return { days: '- -', months: '- -', years: '- -' };
+        return { days: '- -', months: '- -', years: '- -' };
     }
 
     const currentDate = new Date();
-    const totalDays = (currentDate - birthDateObj) / (1000 * 60 * 60 * 24);
 
-    const years = Math.floor(totalDays / 365);
-    const remainingDaysAfterYears = totalDays - (years * 365);
-    const months = Math.floor(remainingDaysAfterYears / 30);
-    const remainingDays = Math.floor(remainingDaysAfterYears % 30);
+    let years = currentDate.getFullYear() - birthDateObj.getFullYear();
+    let months = currentDate.getMonth() - birthDateObj.getMonth();
+    let days = currentDate.getDate() - birthDateObj.getDate();
 
-    return { days: remainingDays, months: months, years: years };
-  };
+    // Adjust if the current day is less than the birth day
+    if (days < 0) {
+        months--;
+        const previousMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+        days += previousMonth.getDate();  // Add the total days in the previous month
+    }
+
+    // Adjust if the current month is less than the birth month
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // Calculate total days considering years and months
+    const totalDays = Math.floor((currentDate - birthDateObj) / (1000 * 60 * 60 * 24));
+    const exactYears = Math.floor(totalDays / 365.25); // considering leap years
+
+    const exactDays = totalDays - exactYears * 365.25;
+    const exactMonths = Math.floor(exactDays / 30);
+
+    return {
+        days: Math.floor(exactDays % 30),
+        months: Math.floor(exactMonths % 12),
+        years: exactYears
+    };
+};
 
   const handleErrorClass = (fieldName) => errors[fieldName] ? `i-c-i ${fieldName} error` : `i-c-i ${fieldName}`;
 
@@ -150,7 +171,7 @@ const Card = () => {
             </div>
             <div className="Output-days">
               <span>{age.days}</span>
-              <h3>day</h3>
+              <h3>days</h3>
             </div>
           </div>
         </div>
