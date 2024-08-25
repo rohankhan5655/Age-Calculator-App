@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import img1 from "./assets/icon-arrow.svg";
 import "./Card.css";
 
@@ -9,16 +9,10 @@ const Card = () => {
   const [age, setAge] = useState({ days: '- -', months: '- -', years: '- -' });
   const [errors, setErrors] = useState({ day: "", month: "", year: "" });
 
-  useEffect(() => {
-    validateFields();
-  }, []);
-
   const validateFields = () => {
-    const newErrors = { day: "", month: "", year: "" };
-    if (!day) newErrors.day = "This field is required";
-    if (!month) newErrors.month = "This field is required";
-    if (!year) newErrors.year = "This field is required";
-    setErrors(newErrors);
+    validateDay(day);
+    validateMonth(month);
+    validateYear(year);
   };
 
   const handleDayChange = (event) => {
@@ -61,6 +55,8 @@ const Card = () => {
   };
 
   const handleCalculateAge = () => {
+    validateFields(); // Validate fields again when the button is clicked
+
     if (!errors.day && !errors.month && !errors.year) {
       const birthDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
       const ageResult = calculateAge(birthDate);
