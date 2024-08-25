@@ -57,7 +57,8 @@ const Card = () => {
   const handleCalculateAge = () => {
     validateFields();
 
-    if (!errors.day && !errors.month && !errors.year) {
+    // Check if there are any errors before calculating age
+    if (!errors.day && !errors.month && !errors.year && day && month && year) {
       const birthDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
       const ageResult = calculateAge(birthDate);
       setAge(ageResult);
