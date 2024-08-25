@@ -15,12 +15,6 @@ const Card = () => {
     validateYear(year);
   };
 
-  const handleDayChange = (event) => {
-    const value = event.target.value;
-    setDay(value);
-    validateDay(value);
-  };
-
   const validateDay = (value) => {
     setErrors((prevState) => ({
       ...prevState,
@@ -28,10 +22,10 @@ const Card = () => {
     }));
   };
 
-  const handleMonthChange = (event) => {
+  const handleDayChange = (event) => {
     const value = event.target.value;
-    setMonth(value);
-    validateMonth(value);
+    setDay(value);
+    validateDay(value);
   };
 
   const validateMonth = (value) => {
@@ -41,10 +35,10 @@ const Card = () => {
     }));
   };
 
-  const handleYearChange = (event) => {
+  const handleMonthChange = (event) => {
     const value = event.target.value;
-    setYear(value);
-    validateYear(value);
+    setMonth(value);
+    validateMonth(value);
   };
 
   const validateYear = (value) => {
@@ -54,8 +48,14 @@ const Card = () => {
     }));
   };
 
+  const handleYearChange = (event) => {
+    const value = event.target.value;
+    setYear(value);
+    validateYear(value);
+  };
+
   const handleCalculateAge = () => {
-    validateFields(); // Validate fields again when the button is clicked
+    validateFields();
 
     if (!errors.day && !errors.month && !errors.year) {
       const birthDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
@@ -83,7 +83,7 @@ const Card = () => {
     return { days: remainingDays, months: months, years: years };
   };
 
-  const handleErrorClass = (fieldName) => errors[fieldName] ? "i-c-i Day error" : "i-c-i Day";
+  const handleErrorClass = (fieldName) => errors[fieldName] ? `i-c-i ${fieldName} error` : `i-c-i ${fieldName}`;
 
   const displayFieldErrorMessage = (fieldName) => errors[fieldName] ? <p className="error-m">{errors[fieldName]}</p> : null;
 
